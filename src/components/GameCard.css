@@ -1,0 +1,31 @@
+.vortex-card {
+  background-color: #1e293b;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  transition: 0.3s;
+}
+
+.vortex-card:hover {
+  transform: translateY(-5px);
+  border-color: #7c3aed;
+}
+
+.card-img { width: 100%; height: 140px; object-fit: cover; }
+
+.card-info { padding: 15px; }
+
+.play-btn {
+  width: 100%;
+  padding: 10px;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
