@@ -1,56 +1,73 @@
-.vortex-header{
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    background-color: #020617;
-    border-bottom: 1px solid #1e293b;
+.vortex-header {
+  height: 80px;
+  display: flex;
+  justify-content: space-between; /* Lado esquerdo | Centro | Lado direito */
+  align-items: center;           /* Alinha tudo verticalmente ao centro */
+  padding: 0 40px;
+  background-color: #020617;
+  border-bottom: 1px solid #1e293b;
 }
 
-.user-info h3{
-    font-size: 1.1rem;
+/* LADO ESQUERDO: Texto */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px; /* Garante que o texto não empurre a busca */
 }
 
-.user-info p{
-    font-size: 0.75rem;
-    color: #94a3d8;
+.user-info h3 { font-size: 1.1rem; }
+.user-info p { font-size: 0.75rem; color: #94a3b8; }
+.highlight { color: #7c3aed; }
+
+/* CENTRO: Barra de Busca */
+.search-bar {
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+  gap: 10px;
+  width: 350px; /* Largura da barra */
+  border: 1px solid transparent;
+  transition: 0.3s;
 }
 
-.destaque{
-    color: #7c3aed;
+.search-bar input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  width: 100%;
 }
 
-.badge{
-    background-color: rgba(124, 58, 237, 0.1);
-    color: #fbbf24;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid #fbbf24;
-    font-size: 11px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
+/* LADO DIREITO: Badge e Notificação */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-width: 200px;
+  justify-content: flex-end; /* Empurra para o final da direita */
 }
 
-.notificacoes{
-    background: transparent;
-    border:none;
-    color: #94a3d8;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    transition: color 0.2s;
+.badge {
+  background: rgba(124, 58, 237, 0.1);
+  color: #fbbf24;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #fbbf24;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap; /* Impede o texto de quebrar */
 }
 
-.notificacoes:hover{
-    color: #7c3aed;
-}
-
-.header-actions{
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.notification-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
