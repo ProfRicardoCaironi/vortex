@@ -1,9 +1,12 @@
 import "./GameCard.css";
 import { Play } from "lucide-react";
 
-export function GameCard({ title, category, banner }) {
+export function GameCard({ title, category, banner, index }) { //passei o index como parametro
   return (
-    <div className="vortex-card">
+    <div className="vortex-card"
+      data-aos="fade-up" //define o efeito
+      data-aos-delay={index * 100} //define o tempo de animação de cada card
+    >
       <img src={banner} alt={title} className="card-img" />
 
       <div className="card-info">

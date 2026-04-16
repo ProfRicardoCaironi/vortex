@@ -8,4 +8,5 @@
 body{
   background-color: #020617;
   color: white;
+  overflow-y: hidden;
 }

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; //importei o useEffect
 import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
 import { gamesData } from "./data/games";
 import { GameCard } from "./components/GameCard";
+import AOS from 'aos'; //importei o AOS
+import "aos/dist/aos.css"; //Importei o CSS da Biblioteca AOS
 import "./App.css";
 
 function App() {
@@ -12,6 +14,15 @@ function App() {
   const filteredGames = gamesData
     .filter(() => activeTab === "dash")
     .filter((game) => game.title.toLowerCase().includes(search.toLowerCase()));
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once:false,
+      easing: "ease-in-out",
+    })
+  },[]);
+
 
   return (
     <div className="vortex-app">
@@ -29,12 +40,13 @@ function App() {
 
           <div className="vortex-grid">
             {filteredGames.length > 0 ? (
-              filteredGames.map((g) => (
+              filteredGames.map((g, index) => (//passei o index como parametro
                 <GameCard
                   key={g.id}
                   title={g.title}
                   category={g.category}
                   banner={g.banner}
+                  index={index} // Coloco o index dentro do Card
                 />
               ))
             ) : (
