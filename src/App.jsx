@@ -1,28 +1,45 @@
-import { useState, useEffect } from "react"; //importei o useEffect
+import { useState, useEffect } from "react";
 import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
-import { gamesData } from "./data/games";
 import { GameCard } from "./components/GameCard";
-import AOS from 'aos'; //importei o AOS
-import "aos/dist/aos.css"; //Importei o CSS da Biblioteca AOS
+import { gamesData} from "./data/games";
+import { GameModal } from "./components/GameModal"; //Importa o componente GameModal
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "./App.css";
 
 function App() {
   const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState("dash");
+  const [favorites, setFavorites] = useState([]); 
+  
+  // 2. Estado para o Modal (null significa modal fechado)
+  const [selectedGame, setSelectedGame] = useState(null);
 
   const filteredGames = gamesData
-    .filter(() => activeTab === "dash")
-    .filter((game) => game.title.toLowerCase().includes(search.toLowerCase()));
+    .filter((g) => activeTab === "dash" || favorites.includes(g.id)) 
+    .filter((g) => g.title.toLowerCase().includes(search.toLowerCase()));
+
+  const toggleFavorite = (id) => {
+   
+    setFavorites((prev) =>
+    
+      prev.includes(id)
+        ? 
+          prev.filter((favId) => favId !== id)
+        : 
+          [...prev, id],
+    );
+  };
 
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      once:false,
+      once: true,
+      mirror: false,
       easing: "ease-in-out",
-    })
-  },[]);
-
+    });
+  }, []);
 
   return (
     <div className="vortex-app">
@@ -40,22 +57,42 @@ function App() {
 
           <div className="vortex-grid">
             {filteredGames.length > 0 ? (
-              filteredGames.map((g, index) => (//passei o index como parametro
+              filteredGames.map((g, index) => (
                 <GameCard
                   key={g.id}
                   title={g.title}
                   category={g.category}
                   banner={g.banner}
-                  index={index} // Coloco o index dentro do Card
+                  index={index}
+                  isFavorite={favorites.includes(g.id)}
+                  onFavorite={() => toggleFavorite(g.id)}
+
+                  //Dispara o modal dentro do Card selecionado
+                  onPlay={() => setSelectedGame(g)}
                 />
               ))
             ) : (
-              <p style={{ color: "#94a3b8" }}>Nenhum jogo encontrado...</p>
+              <p
+                style={{
+                  color: "#94a3b8",
+                  gridColumn: "1/-1",
+                  textAlign: "center",
+                  marginTop: "40px",
+                }}
+              >
+                {activeTab === "favorites"
+                  ? "Você ainda não favoritou nenhum jogo."
+                  : "Nenhum jogo encontrado."}
+              </p>
             )}
           </div>
         </div>
       </main>
+
+      {/* 4. Renderização Condicional do Modal */}
+      <GameModal game={selectedGame} onClose={() => setSelectedGame(null)} />
     </div>
   );
 }
+
 export default App;
